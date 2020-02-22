@@ -49,14 +49,14 @@
 												<td th:text="${user.get('URL')}"></td>
                                                 <td th:text="${user.get('Email')}"></td>
                                                 <td th:text="${user.get('Introg')}"></td>
-												<td class="edit"><a th:href="@{/userEditPage/}+${user.get('Id')}"><button onclick="btn_edit(1)"><i class="icon-edit bigger-120"></i>编辑</button></a></td>
+												<td class="edit"><a th:href="@{/userEditPage/}+${user.get('Id')}"><button onclick="btn_edit(1)"><i class="icon-edit bigger-120" th:text="#{index.edit}"></i></button></a></td>
                                                 <!--<td class="delete">-->
                                                     <!--<from th:action="@{/userDelete/}+${user.getId()}" method="post">-->
                                                         <!--<input type="hidden" name="_method" value="delete">-->
                                                         <!--<button type="submit"><i class="icon-trash bigger-120"></i>删除</button>-->
                                                     <!--</from>-->
                                                 <!--</td>-->
-												<td class="delete"><a th:href="@{/userDelete/}+${user.get('Id')}"><button onclick="btn_delete(1)"><i class="icon-trash bigger-120"></i>删除</button></a></td>
+												<td class="delete"><a th:href="@{/userDelete/}+${user.get('Id')}"><button onclick="btn_delete(1)"><i class="icon-trash bigger-120" th:text="#{index.delete}"></i></button></a></td>
 											</tr>
 										</tbody>
 									

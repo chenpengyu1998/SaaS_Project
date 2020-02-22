@@ -62,6 +62,7 @@ public class UserController {
     @PostMapping("/userEdit")
     public String userEditTouUser(User user){
         System.out.println("修改的数据"+user.toString());
+        jdbcTemplate.update("update user set username = ? , phone = ? , Email = ? , Introg = ? where Id = ?",user.getUsername(),user.getPhone(),user.getEmail(),user.getIntrog(),user.getId());
         return "redirect:/user";
     }
 
