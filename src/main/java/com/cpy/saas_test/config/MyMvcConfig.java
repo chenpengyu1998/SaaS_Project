@@ -5,11 +5,7 @@ import org.springframework.boot.autoconfigure.quartz.QuartzProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
+import org.springframework.web.servlet.config.annotation.*;
 
 
 @Configuration
@@ -21,7 +17,17 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
     }
 
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**").excludePathPatterns("/index","/logindetail","/type/select","/warning","/css/**","/js/**","/image/**","/Resources/fonts/**","/");
+    }
 
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/static/**").addResourceLocations("classpath:/static/");
+
+        super.addResourceHandlers(registry);
+    }
 
 
     @Bean
