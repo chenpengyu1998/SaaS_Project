@@ -6,6 +6,7 @@ import com.cpy.saas_test.dao.MyRowMapperForType;
 import com.cpy.saas_test.element.User;
 import com.cpy.saas_test.element.type;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class TypeController {
@@ -40,14 +42,19 @@ public class TypeController {
     //登录判断密码是否正确
     @PostMapping(value = "/type/select")
     public String loginSelect(@RequestParam("username") String UserName, @RequestParam("password") String Password, Map<String,Object> map, HttpSession session){
-        User user = jdbcTemplate.queryForObject("select * from user where username = ?",new MyRowMapper(),UserName);
-        if(user.getPassword().equals(Password)){
-            session.setAttribute("LoginUser", UserName);
-            return "redirect:/type";
-        }else{
-            map.put("msg", "用户名或密码错误");
-            session.removeAttribute("LoginUser");
+        try {
+            User user = jdbcTemplate.queryForObject("select * from user where username = ?", new MyRowMapper(), UserName);
+            if (user.getPassword().equals(Password)) {
+                session.setAttribute("LoginUser", UserName);
+                return "redirect:/type";
+            } else {
+                map.put("msg", "密码错误");
+                session.removeAttribute("LoginUser");
 
+            }
+        }catch (EmptyResultDataAccessException e){
+            map.put("msg", "用户名错误");
+            session.removeAttribute("LoginUser");
         }
 
         return "logindetail";
@@ -70,6 +77,24 @@ public class TypeController {
         jdbcTemplate.update("update type set Typename = ? , `Describe` = ? , Tips = ? where id = ? ", t.getTypename(),t.getDescribe(),t.getTips(),t.getId());
         return "redirect:/type";
     }
+
+
+    @GetMapping("/typeDeletePage/{id}")
+    public String typeDelete(@PathVariable("id") String id){
+        jdbcTemplate.update("delete from type where id = ?", id);
+        return "redirect:/type";
+    }
+
+
+    @PostMapping("/typeAdd")
+    public String typeAdd(type type){
+        type.setId("T" + Long.toString(System.currentTimeMillis()));
+        jdbcTemplate.update("insert into type (Id, Typename, `describe`,Tips) VALUE (?,?,?,?)", type.getId(),type.getTypename(),type.getDescribe(),type.getTips());
+
+
+        return "redirect:/type";
+    }
+
 
 
 }

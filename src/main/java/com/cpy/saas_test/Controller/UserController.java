@@ -40,10 +40,12 @@ public class UserController {
     @PostMapping("/userAdd")
     public String userAdd(User user){
 
-        user.setId(Long.toString(System.currentTimeMillis()));
+        //U代表user
+        user.setId("U"+Long.toString(System.currentTimeMillis()));
 
         //后期只需要保存在数据库即可
         System.out.println(user.toString());
+        jdbcTemplate.update("INSERT INTO user (Id,username,password,phone,Email,Introg) VALUES(?,?,?,?,?,?)", user.getId(),user.getUsername(),user.getPassword(),user.getPhone(),user.getEmail(),user.getIntrog());
         //redirect: 表示重定向到一个地址 /代表当前项目路径
         //forward:  表示转发到一个地址
         return "redirect:/user";
@@ -67,12 +69,13 @@ public class UserController {
     }
 
 
-    @GetMapping("/userDelete/{id}")
+    @GetMapping("/userDeletePage/{id}")
     public String userDelete(@PathVariable("id") String id){
-
-        System.out.println("id="+id);
+        jdbcTemplate.update("delete from user where id = ?", id);
         return "redirect:/user";
     }
+
+
 
 
 }
