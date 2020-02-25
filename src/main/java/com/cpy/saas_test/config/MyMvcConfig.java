@@ -19,7 +19,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**").excludePathPatterns("/index","/logindetail","/type/select","/warning","/css/**","/js/**","/image/**","/Resources/fonts/**","/");
+        registry.addInterceptor(new LoginHanderInterceptor()).addPathPatterns("/**").excludePathPatterns("/adminLogin","/admin/select","/user","/index","/logindetail","/type/select","/warning","/css/**","/js/**","/image/**","/Resources/fonts/**","/");
     }
 
     @Override
@@ -43,6 +43,7 @@ public class MyMvcConfig extends WebMvcConfigurerAdapter {
                 registry.addViewController("/warning").setViewName("warning");
                 registry.addViewController("/outBoud").setViewName("outBoud");
                 registry.addViewController("/updatePwd").setViewName("updatePwd");
+                registry.addViewController("/adminLogin").setViewName("adminLogin");
             }
 
 

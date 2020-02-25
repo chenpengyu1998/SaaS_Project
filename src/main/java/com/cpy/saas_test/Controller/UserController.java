@@ -5,6 +5,7 @@ import com.cpy.saas_test.dao.MyRowMapper;
 
 import com.cpy.saas_test.element.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpRequest;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
@@ -12,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -21,6 +23,25 @@ public class UserController {
 
     @Autowired
     JdbcTemplate jdbcTemplate;
+
+
+
+    @PostMapping("/admin/select")
+    public String adminLogin(HttpSession session, Map<String,Object> map, @RequestParam("username") String UserName,@RequestParam("password") String Password) {
+
+        User user = jdbcTemplate.queryForObject("select * from user where username = 'admin'", new MyRowMapper());
+        if (user.getUsername().equals(UserName) && user.getPassword().equals(Password)) {
+            session.setAttribute("LoginUser", UserName);
+            return "redirect:/user";
+        } else {
+            map.put("msg", "管理员账户或者密码错误");
+            session.removeAttribute("LoginUser");
+
+        }
+
+
+        return "adminLogin";
+    }
 
     //查找所有的Users
     @GetMapping("/user")
