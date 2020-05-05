@@ -19,11 +19,11 @@
 
 			<div>
 				<!--tab start-->
-				<div class="tabs" style="margin: 30px;">
+				<div class="tabs">
 					<div class="hd">
 						<ul>
-							<li class="on" style="box-sizing: initial;-webkit-box-sizing: initial;">入库记录</li>
-							 <li class="" style="box-sizing: initial;-webkit-box-sizing: initial;">商品入库</li>
+							<li class="on" style="box-sizing: initial;-webkit-box-sizing: initial;">出库记录</li>
+							 <li class="" style="box-sizing: initial;-webkit-box-sizing: initial;">商品出库</li>
 						</ul>
 					</div>
 					<div class="bd">
@@ -37,23 +37,22 @@
 												<th>编号</th>
 												<th>商品名称</th>
 												<th>商品分类</th>
-												<th>入库数量 </th>
-												<th>入库日期</th>
+												<th>出库数量 </th>
+												<th>出库日期</th>
 												<th>编辑</th>
 												<th>删除</th>
 											</tr>
 										</thead>
 										<tbody>
-											<tr th:each="goodsin : ${goodsins}">
-												<td th:text="${goodsin.get('Id')}">1</td>
-												<td th:text="${goodsin.get('Gname')}">商品1</td>
-												<td th:text="${goodsin.get('Gtype')}">肉类</td>
-												<td th:text="${goodsin.get('amount')}">1000</td>
-												<td th:text="${goodsin.get('date')}">2012-12-10</td>
-												<td class="edit"><a th:href="@{/inboundEditPage/}+${goodsin.get('Id')}"><button onclick="btn_edit(1)"><i class="icon-edit bigger-120"></i>编辑</button></a></td>
-												<td class="delete"><a th:href="@{/inboundDelete/}+${goodsin.get('Id')}"><button onclick="btn_delete(1)"><i class="icon-trash bigger-120"></i>删除</button></a></td>
-											</tr>
-
+										<tr th:each="goodsout : ${goodsouts}">
+											<td th:text="${goodsout.get('Id')}">1</td>
+											<td th:text="${goodsout.get('Gname')}">商品1</td>
+											<td th:text="${goodsout.get('Gtype')}">肉类</td>
+											<td th:text="${goodsout.get('amount')}">1000</td>
+											<td th:text="${goodsout.get('OutDate')}">2012-12-10</td>
+											<td class="edit"><a th:href="@{/outboundEditPage/}+${goodsout.get('Id')}"><button onclick="btn_edit(1)"><i class="icon-edit bigger-120"></i>编辑</button></a></td>
+											<td class="delete"><a th:href="@{/outboundDelete/}+${goodsout.get('Id')}"><button onclick="btn_delete(1)"><i class="icon-trash bigger-120"></i>删除</button></a></td>
+										</tr>
 
 											
 										</tbody>
@@ -67,7 +66,7 @@
 								<div class="am-cf admin-main" style="padding-top: 0px;">
 			<!-- content start -->
 			
-	<div class="am-cf admin-main" style="padding-top: 0px;">
+		<div class="am-cf admin-main" style="padding-top: 0px;">
 		<!-- content start -->
 		<div class="admin-content">
 			<div class="admin-content-body">
@@ -77,7 +76,7 @@
 						
 					</div>
 					<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 30px;">
-						<form class="am-form am-form-horizontal" th:action="@{/insertGoodsin}" action="user/addUser1Submit.action" method="post">
+						<form class="am-form am-form-horizontal" th:action="@{/insertGoodsout}" action="user/addUser1Submit.action" method="post">
 
 							<div class="am-form-group">
 								<label for="Gname" class="am-u-sm-3 am-form-label">
@@ -109,9 +108,9 @@
 							</div>
 
 							<div class="am-form-group" style="width: 659px;margin-left: 80px">
-								<label style="padding-right: 28px" for="date" class="am-u-sm-3 am-form-label">
+								<label style="padding-right: 28px" for="OutDate" class="am-u-sm-3 am-form-label">
 									日期</label>
-								<input type="date" style="margin-left: 166px" id="date" name="date"  placeholder="选择或者输入一个日期：yyyy-MM-dd">
+								<input type="date" style="margin-left: 166px" id="OutDate" name="OutDate"  placeholder="选择或者输入一个日期：yyyy-MM-dd">
 							</div>
 
 							<div class="am-form-group">
@@ -129,7 +128,10 @@
 	</div>
 							<!--添加 end-->
 							<!--end-->
-						</div></div></ul>
+						</div>
+							<!--添加 end-->
+							<!--end-->
+						</div></ul>
 					
 				
 				<!--tab end-->
@@ -142,10 +144,6 @@
               <script src="../js/_layout.js"></script>
              <script src="../js/plugs/jquery.SuperSlide.source.js"></script>
 			<script>
-
-
-
-
 				var num = 1;
 				$(function() {
 

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html">
+		
+		<title></title>
+		<link rel="stylesheet" href="../css/Site.css">
+		<link rel="stylesheet" href="../css/zy.all.css">
+		<link rel="stylesheet" href="../css/font-awesome.min.css">
+		<link rel="stylesheet" href="../css/amazeui.min.css">
+		<link rel="stylesheet" href="../css/admin.css">
+	</head>
+	<body>
+			<div class="am-cf admin-main" style="padding-top: 0px;">
+			<!-- content start -->
+			
+	<div class="am-cf admin-main" style="padding-top: 0px;">
+		<!-- content start -->
+		<div class="admin-content">
+			<div class="admin-content-body">
+				
+				<div class="am-g">
+					<div class="am-u-sm-12 am-u-md-4 am-u-md-push-8">
+						
+					</div>
+					<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 30px;">
+						<div>
+
+						<form class="am-form am-form-horizontal"  th:action="@{/RegisterDetile}" th:method="post">
+							<p style="color: orangered;text-align: center" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+
+							<div class="am-form-group">
+								<label for="username" class="am-u-sm-3 am-form-label" >
+								姓 名</label>
+								<div class="am-u-sm-9">
+									<input type="text" id="username" required=""  placeholder="Name" name="username">
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="password" class="am-u-sm-3 am-form-label" >
+								密 码</label>
+								<div class="am-u-sm-9">
+									<input type="password" id="password" required="" placeholder="Password" name="password">
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="Spassword" class="am-u-sm-3 am-form-label">
+								确 认 密 码</label>
+								<div class="am-u-sm-9">
+									<input type="password" id="Spassword" required="" placeholder="Confirm Password" name="Spassword">
+								</div>
+							</div>
+							
+							<div class="am-form-group">
+								<label for="phone" class="am-u-sm-3 am-form-label">
+								电 话</label>
+								<div class="am-u-sm-9">
+									<input type="text" id="phone" required="" placeholder="Phone" name="phone">
+								</div>
+							</div>
+
+							<div class="am-form-group">
+								<label for="Email" class="am-u-sm-3 am-form-label">
+								邮 箱</label>
+								<div class="am-u-sm-9">
+									<input type="text" id="Email" required=""  placeholder="Email" name="Email">
+								</div>
+								<span style="width:30px;padding-left:262px;color:gray">请注意查收邮件</span>
+							</div>
+
+
+
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <input type="submit" class="am-btn am-btn-success" value="注册用户">
+                                </div>
+                            </div>
+						</form>
+	
+					  </div>
+						
+					</div>
+				</div>
+			</div>
+			<footer class="admin-content-footer">
+			<hr>
+			<p class="am-padding-left">
+			</footer>
+		</div>
+		<!-- content end -->
+	</div>
+							<!-- end-->
+	</div></body>
+</html>

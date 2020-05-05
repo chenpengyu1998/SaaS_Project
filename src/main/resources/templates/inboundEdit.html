@@ -11,58 +11,19 @@
 		<link rel="stylesheet" href="../css/zy.all.css">
 		<link rel="stylesheet" href="../css/font-awesome.min.css">
 		<link rel="stylesheet" href="../css/amazeui.min.css">
-	  <link rel="stylesheet" href="../css/admin.css">
+		<link rel="stylesheet" href="../css/admin.css">
 	</head>
-
 	<body>
 		<div class="dvcontent">
 
 			<div>
 				<!--tab start-->
 				<div class="tabs">
-					<div class="hd">
-						<ul>
-							<li class="on" style="box-sizing: initial;-webkit-box-sizing: initial;">库存管理</li>
-							 <li class="" style="box-sizing: initial;-webkit-box-sizing: initial;">添加商品</li>
-						</ul>
-					</div>
+
 					<div class="bd">
-						<ul style="display: block;padding: 20px;">
-							<li>
-								<!--分页显示角色信息 start-->
-								<div id="dv1">
-									<table class="table" id="tbRecord">
-										<thead>
-											<tr>
-												<th>库存编号</th>
-												<th>商品名称</th>
-												<th>商品分类</th>
-												<th>商品数量</th>
-												<th>编辑</th>
-												<th>删除</th>
-												
-											</tr>
-										</thead>
-										<tbody>
-											<tr th:each="good : ${goods}">
-												<td th:text="${good.get('Id')}">1</td>
-												<td th:text="${good.get('Gname')}">商品1</td>
-												<td th:text="${good.get('Gtype')}">肉类</td>
-												<td th:text="${good.get('amount')}">1000</td>
-												<td class="edit"><a th:href="@{/inventoryEditPage/}+${good.get('Id')}"><button onclick="btn_edit(1)"><i class="icon-edit bigger-120"></i>编辑</button></a></td>
-												<td class="delete"><a th:href="@{/inventoryDelete/}+${good.get('Id')}"><button onclick="btn_delete(1)"><i class="icon-trash bigger-120"></i>删除</button></a></td>
-											</tr>
-											
-											
-										</tbody>
-									
-									</table>
-								</div>
-								<!--分页显示角色信息 end-->
-							</li>
-						</ul>
+
 						<ul class="theme-popbod dform" style="display: none;">
-								<div class="am-cf admin-main" style="padding-top: 0px;">
+							<div class="am-cf admin-main" style="padding-top: 0px;">
 			<!-- content start -->
 			
 	<div class="am-cf admin-main" style="padding-top: 0px;">
@@ -75,54 +36,83 @@
 						
 					</div>
 					<div class="am-u-sm-12 am-u-md-8 am-u-md-pull-4" style="padding-top: 30px;">
-						<form class="am-form am-form-horizontal" th:action="@{/inventoryCreate}" action="user/addUser1Submit.action" method="post">
-						
-							<div class="am-form-group">
-								<label for="Gname" class="am-u-sm-3 am-form-label">
-									商品名称</label>
-								<div class="am-u-sm-9">
-									<input type="text" id="Gname" required="" placeholder="商品名称" name="Gname">
-										<small>10字以内...</small>
-								</div>
-							</div>
-							
+						<form class="am-form am-form-horizontal" th:action="@{/GoodsinEdit}" th:method="post" action="user/addUser1Submit.action">
+                            <input type="hidden" name="_method" value="put" />
+                            <input type="hidden" name="Id" th:value="${goods.Id}">
+							<!--<div class="am-form-group">-->
+							<!--<label for="user-name" class="am-u-sm-3 am-form-label">-->
+							<!--姓名 / Name </label>-->
+							<!--<div class="am-u-sm-9">-->
+							<!--<input type="text" id="user-name" required="" placeholder="姓名 / Name" name="username">-->
+							<!--</div>-->
+							<!--</div>-->
+							<!--<div class="am-form-group">-->
+								<!--<label  class="am-u-sm-3 am-form-label">-->
+									<!--货物名称 / GoodsName </label>-->
+								<!--<div class="am-u-sm-9">-->
+									<!--<input type="text" id="Gname" required="" th:value="${goods.Gname}"  name="Gname">-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="am-form-group">-->
+								<!--<label for="user-name" class="am-u-sm-3 am-form-label">-->
+									<!--密码 / password </label>-->
+								<!--<div class="am-u-sm-9">-->
+									<!--<input type="text" id="user-name" required="" placeholder="密码 / password" name="password">-->
+								<!--</div>-->
+							<!--</div>-->
+							<!--<div class="am-form-group">-->
+							<!--<label for="user-name" class="am-u-sm-3 am-form-label">-->
+							<!--性别 / sex </label>-->
+							<!--<div class="am-u-sm-9" style="line-height: 30px;">-->
+							<!--<input type="radio" id="man" name="sex" value="1" ${user.sex="=1?" "checked="checked" ":""}/=""> <label for="man">-->
+							<!--男 </label> &nbsp;&nbsp;&nbsp;&nbsp; <input type="radio" id="woman" name="sex" value="0" ${user.sex="=0?" "checked="checked" ":""}="">-->
+							<!--<label for="woman"> 女 </label> <br> <small>性别...</small>-->
+							<!--</div>-->
+							<!--</div>-->
 							<div class="am-form-group">
 								<label  class="am-u-sm-3 am-form-label">
-								分类</label>
+									分类</label>
 								<div class="am-u-sm-9">
 									<select name="Gtype" >
 										<option th:each="type : ${types}" th:value="${type.get('Typename')}" th:text="${type.get('Typename')}" th:selected="selected">分类1
 									</select> <small>群组</small>
 								</div>
 							</div>
+							<!--<div class="am-form-group">-->
+							<!--<label for="user-email" class="am-u-sm-3 am-form-label">-->
+							<!--籍贯 / place </label>-->
+							<!--<div class="am-u-sm-9">-->
+							<!--<input type="text" id="user-email" required="" placeholder="请输入籍贯" name="place"> <small>籍贯...</small>-->
+							<!--</div>-->
+							<!--</div>-->
 							<div class="am-form-group">
-								<label for="amount" class="am-u-sm-3 am-form-label">
-									商品余量</label>
+								<label for="user-email" class="am-u-sm-3 am-form-label">
+									余量 / amount </label>
 								<div class="am-u-sm-9">
-									<input type="text" id="amount" required="" placeholder="商品余量" name="amount">
-
+									<input type="text" id="user-email" required="" th:value="${goods.amount}" placeholder="输入你的备注 / Tips" name="amount">
 								</div>
 							</div>
+
 							<div class="am-form-group">
 								<div class="am-u-sm-9 am-u-sm-push-3">
-									<input type="submit" class="am-btn am-btn-success" value="添加商品">
+									<input type="submit" class="am-btn am-btn-success" value="修改库存">
 								</div>
 							</div>
 						</form>
 					</div>
 				</div>
 			</div>
-		
+			
 		</div>
 		<!-- content end -->
 	</div>
-							<!--添加 end-->
-						</div></ul>
-					
-				
+							<!--添加角色 end--
+						</ul>
+					</div>
+				</div>
 				<!--tab end-->
 
-			
+			</div>
 
 			
 			 <script src="../js/jquery-1.7.2.min.js" type="text/javascript"></script>
@@ -181,13 +171,27 @@
 					$.jq_Confirm({
 						message: "您确定要删除吗?",
 						btnOkClick: function() {
-							
+							$.ajax({
+								type: "post",
+								url: "/RawMaterialsType/DeleteRawMaterialsType",
+								data: { id: id },
+								success: function(data) {
+									if(data > 0) {
+										$.jq_Alert({
+											message: "删除成功",
+											btnOkClick: function() {
+												page1();
+											}
+										});
+									}
+								}
+							});
 						}
 					});
 				}
 			</script>
 
-		
-	</div></div></div></div></body>
+		</ul></div>
+	</div></div></div></body>
 
 </html>

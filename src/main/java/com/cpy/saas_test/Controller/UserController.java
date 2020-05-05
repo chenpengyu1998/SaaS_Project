@@ -1,9 +1,11 @@
 package com.cpy.saas_test.Controller;
 
 
+import com.cpy.saas_test.Util.CreateTableMapper;
 import com.cpy.saas_test.dao.MyRowMapper;
 
 import com.cpy.saas_test.element.User;
+import com.sun.deploy.net.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpRequest;
@@ -11,6 +13,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.resource.HttpResource;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -24,18 +27,23 @@ public class UserController {
     @Autowired
     JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    CreateTableMapper table;
+
+
+
 
 
     @PostMapping("/admin/select")
-    public String adminLogin(HttpSession session, Map<String,Object> map, @RequestParam("username") String UserName,@RequestParam("password") String Password) {
+    public String adminLogin(HttpServletRequest request, Map<String,Object> map, @RequestParam("username") String UserName, @RequestParam("password") String Password) {
 
         User user = jdbcTemplate.queryForObject("select * from user where username = 'admin'", new MyRowMapper());
         if (user.getUsername().equals(UserName) && user.getPassword().equals(Password)) {
-            session.setAttribute("LoginUser", UserName);
+//            request.getSession().setAttribute("LoginUser", UserName);
             return "redirect:/user";
         } else {
             map.put("msg", "管理员账户或者密码错误");
-            session.removeAttribute("LoginUser");
+//            request.getSession().removeAttribute("LoginUser");
 
         }
 
@@ -91,8 +99,12 @@ public class UserController {
 
 
     @GetMapping("/userDeletePage/{id}")
-    public String userDelete(@PathVariable("id") String id){
+    public String userDelete(@PathVariable("id") String id, HttpServletRequest request){
+        String username = ((User)jdbcTemplate.queryForObject("select * from user where id = ?", new MyRowMapper(),id)).getUsername();
         jdbcTemplate.update("delete from user where id = ?", id);
+        table.deleteTable("goods_"+username);
+        table.deleteTable("goodsin_"+username);
+        table.deleteTable("goodsout_"+username);
         return "redirect:/user";
     }
 
